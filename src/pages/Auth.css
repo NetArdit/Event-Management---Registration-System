@@ -1,0 +1,23 @@
+.auth-page {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-7) var(--space-4);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  padding: var(--space-6);
+}
+
+.auth-card h1 {
+  font-size: 1.4rem;
+  margin-bottom: var(--space-4);
+}
+
+.auth-switch {
+  margin-top: var(--space-4);
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}

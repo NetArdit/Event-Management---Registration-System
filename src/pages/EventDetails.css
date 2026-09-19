@@ -1,0 +1,82 @@
+.event-details {
+  padding-top: var(--space-5);
+}
+
+.event-details-image {
+  width: 100%;
+  max-height: 320px;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-4);
+}
+
+.event-details-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.event-details-header {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.event-details-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-4);
+  align-items: start;
+}
+
+.event-details-main,
+.event-details-sidebar {
+  /* Grid items default to min-width: auto, which sizes them to fit their
+     content's "minimum content width" even with overflow-wrap set — long
+     unbroken text (e.g. a pasted URL) would otherwise force the whole grid
+     wider than the viewport instead of wrapping. */
+  min-width: 0;
+}
+
+@media (max-width: 780px) {
+  .event-details-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.event-description {
+  white-space: pre-wrap;
+  color: var(--color-text);
+}
+
+.event-details-sidebar {
+  padding: var(--space-5);
+  position: sticky;
+  top: 80px;
+}
+
+.event-facts {
+  margin: 0 0 var(--space-5);
+}
+
+.event-facts div {
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.event-facts div:last-child {
+  border-bottom: none;
+}
+
+.event-facts dt {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-text-muted);
+}
+
+.event-facts dd {
+  margin: var(--space-1) 0 0;
+  font-weight: 600;
+}
