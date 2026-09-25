@@ -6,7 +6,7 @@ import ErrorState from '../../components/ErrorState'
 import EmptyState from '../../components/EmptyState'
 import Modal from '../../components/Modal'
 import { formatDate } from '../../utils/formatters'
-import { STATUS_LABELS, statusBadgeClass } from '../../utils/eventHelpers'
+import { getRealStatus, getStatusLabel, getStatusClass } from '../../lib/eventStatus'
 import './Admin.css'
 
 export default function AdminEvents() {
@@ -99,7 +99,9 @@ export default function AdminEvents() {
                   <td>{event.category}</td>
                   <td>{event.capacity}</td>
                   <td>
-                    <span className={statusBadgeClass(event.status)}>{STATUS_LABELS[event.status]}</span>
+                    <span className={`badge ${getStatusClass(getRealStatus(event))}`}>
+                      {getStatusLabel(getRealStatus(event))}
+                    </span>
                   </td>
                   <td>
                     <div className="admin-table-actions">

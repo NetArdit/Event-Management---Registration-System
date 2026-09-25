@@ -7,6 +7,7 @@ import ErrorState from '../components/ErrorState'
 import EmptyState from '../components/EmptyState'
 import StatCard from '../components/StatCard'
 import EventCard from '../components/EventCard'
+import { getRealStatus } from '../lib/eventStatus'
 import './Dashboard.css'
 
 export default function Dashboard() {
@@ -61,7 +62,7 @@ export default function Dashboard() {
   const upcoming = useMemo(
     () =>
       active
-        .filter((row) => row.events && ['upcoming', 'ongoing'].includes(row.events.status))
+        .filter((row) => row.events && ['upcoming', 'ongoing'].includes(getRealStatus(row.events)))
         .sort((a, b) => new Date(a.events.event_date) - new Date(b.events.event_date))
         .slice(0, 6),
     [active]

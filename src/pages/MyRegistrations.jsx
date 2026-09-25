@@ -7,7 +7,7 @@ import ErrorState from '../components/ErrorState'
 import EmptyState from '../components/EmptyState'
 import Modal from '../components/Modal'
 import { formatDate, formatTimeRange } from '../utils/formatters'
-import { STATUS_LABELS, statusBadgeClass } from '../utils/eventHelpers'
+import { getRealStatus, getStatusLabel, getStatusClass } from '../lib/eventStatus'
 import './MyRegistrations.css'
 
 const TABS = [
@@ -112,9 +112,11 @@ export default function MyRegistrations() {
               <div className="registration-item-main">
                 <div className="registration-item-top">
                   <Link to={`/events/${row.events.id}`}>{row.events?.title || 'Untitled event'}</Link>
-                  <span className={statusBadgeClass(row.events?.status)}>
-                    {STATUS_LABELS[row.events?.status]}
-                  </span>
+                  {row.events && (
+                    <span className={`badge ${getStatusClass(getRealStatus(row.events))}`}>
+                      {getStatusLabel(getRealStatus(row.events))}
+                    </span>
+                  )}
                 </div>
                 <p className="registration-item-meta">
                   {formatDate(row.events?.event_date)} · {formatTimeRange(row.events?.start_time, row.events?.end_time)}

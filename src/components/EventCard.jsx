@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom'
 import { formatDate, formatTimeRange } from '../utils/formatters'
-import { STATUS_LABELS, statusBadgeClass, spotsRemaining } from '../utils/eventHelpers'
+import { spotsRemaining } from '../utils/eventHelpers'
+import { getRealStatus, getStatusLabel, getStatusClass } from '../lib/eventStatus'
 import './EventCard.css'
 
 export default function EventCard({ event, registeredCount = 0, userRegistrationStatus }) {
   const spotsLeft = spotsRemaining(event, registeredCount)
+  const status = getRealStatus(event)
 
   return (
     <Link to={`/events/${event.id}`} className="event-card card">
@@ -15,7 +17,7 @@ export default function EventCard({ event, registeredCount = 0, userRegistration
       )}
       <div className="event-card-body">
         <div className="event-card-top">
-          <span className={statusBadgeClass(event.status)}>{STATUS_LABELS[event.status]}</span>
+          <span className={`badge ${getStatusClass(status)}`}>{getStatusLabel(status)}</span>
           {userRegistrationStatus === 'registered' && (
             <span className="badge badge-registered">You&rsquo;re registered</span>
           )}

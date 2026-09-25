@@ -26,17 +26,17 @@
   gap: var(--space-5);
 }
 
-.navbar-links a {
+.navbar-links a:not(.btn) {
   color: var(--color-text);
   font-weight: 500;
   font-size: 0.92rem;
 }
 
-.navbar-links a.active {
+.navbar-links a:not(.btn).active {
   color: var(--color-primary);
 }
 
-.navbar-links a:hover {
+.navbar-links a:not(.btn):hover {
   text-decoration: none;
   color: var(--color-primary);
 }

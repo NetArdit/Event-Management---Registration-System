@@ -25,7 +25,7 @@ export default function AdminEventRegistrations() {
     setError('')
     try {
       const [eventResult, registrationsResult] = await Promise.all([
-        supabase.from('events').select('*').eq('id', id).single(),
+        supabase.from('events').select('*').eq('id', id).maybeSingle(),
         supabase
           .from('registrations')
           .select('id, status, registered_at, profiles(full_name, email)')
@@ -35,6 +35,7 @@ export default function AdminEventRegistrations() {
 
       if (eventResult.error) throw eventResult.error
       if (registrationsResult.error) throw registrationsResult.error
+      if (!eventResult.data) throw new Error('Event not found.')
 
       setEvent(eventResult.data)
       setRegistrations(registrationsResult.data)

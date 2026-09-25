@@ -28,8 +28,9 @@ export default function AdminEventForm() {
     setLoading(true)
     setLoadError('')
     try {
-      const { data, error } = await supabase.from('events').select('*').eq('id', id).single()
+      const { data, error } = await supabase.from('events').select('*').eq('id', id).maybeSingle()
       if (error) throw error
+      if (!data) throw new Error('Event not found.')
       setInitialValues({
         ...data,
         start_time: data.start_time?.slice(0, 5),

@@ -1,26 +1,26 @@
 :root {
-  --color-primary: #2952a3;
-  --color-primary-dark: #1e3d7a;
-  --color-primary-light: #e8eefb;
-  --color-danger: #b3261e;
-  --color-danger-light: #fbeaea;
-  --color-success: #1e7a4c;
-  --color-success-light: #e7f5ee;
-  --color-warning: #9a6b00;
-  --color-warning-light: #fdf3dd;
+  --color-primary: #2563eb;
+  --color-primary-dark: #1e40af;
+  --color-primary-light: #dbeafe;
+  --color-danger: #dc2626;
+  --color-danger-light: #fee2e2;
+  --color-success: #16a34a;
+  --color-success-light: #dcfce7;
+  --color-warning: #92400e;
+  --color-warning-light: #fef3c7;
 
-  --color-text: #1c2430;
-  --color-text-muted: #5c6675;
-  --color-border: #dde2ea;
+  --color-text: #111827;
+  --color-text-muted: #6b7280;
+  --color-border: #e5e7eb;
   --color-surface: #ffffff;
-  --color-background: #f5f7fa;
+  --color-background: #f9fafb;
 
   --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
 
-  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
-  --shadow-md: 0 4px 12px rgba(16, 24, 40, 0.08);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 1px 3px rgba(0, 0, 0, 0.1);
 
   --space-1: 4px;
   --space-2: 8px;
@@ -30,7 +30,7 @@
   --space-6: 32px;
   --space-7: 48px;
 
-  --font-sans: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-sans: system-ui, -apple-system, sans-serif;
 
   color-scheme: light;
 }
@@ -49,6 +49,7 @@ body {
 
 body {
   font-family: var(--font-sans);
+  font-size: 15px;
   color: var(--color-text);
   background: var(--color-background);
   line-height: 1.5;
@@ -82,6 +83,21 @@ h3,
 h4 {
   line-height: 1.25;
   margin: 0 0 var(--space-3);
+}
+
+h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 1.375rem;
+  font-weight: 600;
+}
+
+h3,
+h4 {
+  font-weight: 600;
 }
 
 p {
@@ -123,46 +139,50 @@ button {
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
   text-decoration: none;
   line-height: 1.2;
 }
 
-.btn:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
+.btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .btn-primary {
   background: var(--color-primary);
   border-color: var(--color-primary);
-  color: #fff;
+  color: #ffffff;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: var(--color-primary-dark);
+  background: #1d4fd8;
+  border-color: #1d4fd8;
+  color: #ffffff;
   text-decoration: none;
 }
 
 .btn-secondary {
-  background: var(--color-surface);
-  border-color: var(--color-border);
-  color: var(--color-text);
+  background: transparent;
+  border-color: #9ca3af;
+  color: #374151;
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background: var(--color-background);
+  background: #f3f4f6;
   text-decoration: none;
 }
 
 .btn-danger {
   background: var(--color-danger);
   border-color: var(--color-danger);
-  color: #fff;
+  color: #ffffff;
 }
 
 .btn-danger:hover:not(:disabled) {
-  background: #8f1e18;
+  background: #b91c1c;
+  border-color: #b91c1c;
+  color: #ffffff;
   text-decoration: none;
 }
 
@@ -177,9 +197,19 @@ button {
   text-decoration: none;
 }
 
+/* Disabled (also used while a request is loading). Declared after the
+   variants so it overrides them, and hover is excluded via :not(:disabled). */
+.btn:disabled,
+.btn-disabled {
+  background: #e5e7eb;
+  border-color: #e5e7eb;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
 .btn-sm {
   padding: 6px 12px;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
 }
 
 .btn-block {
@@ -217,6 +247,7 @@ select:focus,
 textarea:focus {
   outline: 2px solid var(--color-primary);
   outline-offset: 1px;
+  border-color: var(--color-primary);
 }
 
 textarea {
@@ -237,15 +268,15 @@ textarea {
 }
 
 .field-error {
-  color: var(--color-danger);
-  font-size: 0.85rem;
+  color: #b91c1c;
+  font-size: 0.875rem;
   margin-top: var(--space-1);
 }
 
 .form-error-banner {
   background: var(--color-danger-light);
-  color: var(--color-danger);
-  border: 1px solid rgba(179, 38, 30, 0.25);
+  color: #991b1b;
+  border: 1px solid rgba(220, 38, 38, 0.3);
   border-radius: var(--radius-md);
   padding: var(--space-3) var(--space-4);
   margin-bottom: var(--space-4);
@@ -254,8 +285,8 @@ textarea {
 
 .form-success-banner {
   background: var(--color-success-light);
-  color: var(--color-success);
-  border: 1px solid rgba(30, 122, 76, 0.25);
+  color: #166534;
+  border: 1px solid rgba(22, 163, 74, 0.3);
   border-radius: var(--radius-md);
   padding: var(--space-3) var(--space-4);
   margin-bottom: var(--space-4);
@@ -275,41 +306,71 @@ textarea {
 
 .badge {
   display: inline-block;
-  padding: 3px 10px;
+  padding: 4px 10px;
   border-radius: 999px;
-  font-size: 0.75rem;
+  font-size: 12px;
   font-weight: 600;
   white-space: nowrap;
 }
 
-.badge-upcoming {
-  background: var(--color-primary-light);
-  color: var(--color-primary-dark);
+.status-upcoming {
+  background: #dbeafe;
+  color: #1e40af;
 }
 
-.badge-ongoing {
-  background: var(--color-success-light);
-  color: var(--color-success);
+.status-ongoing {
+  background: #fef3c7;
+  color: #92400e;
 }
 
-.badge-completed {
-  background: #eef0f3;
-  color: var(--color-text-muted);
+.status-completed {
+  background: #e5e7eb;
+  color: #374151;
 }
 
-.badge-cancelled {
-  background: var(--color-danger-light);
-  color: var(--color-danger);
+.status-cancelled {
+  background: #fee2e2;
+  color: #991b1b;
 }
 
 .badge-registered {
-  background: var(--color-success-light);
-  color: var(--color-success);
+  background: #dcfce7;
+  color: #166534;
+}
+
+.badge-cancelled {
+  background: #fee2e2;
+  color: #991b1b;
 }
 
 .badge-neutral {
-  background: var(--color-primary-light);
-  color: var(--color-primary-dark);
+  background: #f3f4f6;
+  color: #374151;
+}
+
+/* ---------- Event messages ---------- */
+
+.event-message {
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.event-message--cancelled {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.event-message--completed {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.event-message--ongoing {
+  background: #fef3c7;
+  color: #92400e;
 }
 
 /* ---------- Page header ---------- */

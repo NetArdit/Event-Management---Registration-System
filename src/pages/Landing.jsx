@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabaseClient'
 import { useAuth } from '../context/AuthContext'
 import EventCard from '../components/EventCard'
+import { getRealStatus } from '../lib/eventStatus'
 import LoadingState from '../components/LoadingState'
 import EmptyState from '../components/EmptyState'
 import ErrorState from '../components/ErrorState'
@@ -80,7 +81,7 @@ export default function Landing() {
         .limit(UPCOMING_EVENTS_LIMIT)
 
       if (loadError) throw loadError
-      setEvents(data)
+      setEvents(data.filter((event) => getRealStatus(event) === 'upcoming'))
     } catch (err) {
       setError(err.message || 'Failed to load upcoming events.')
     } finally {

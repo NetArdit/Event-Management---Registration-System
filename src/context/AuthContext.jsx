@@ -13,7 +13,7 @@ export function AuthProvider({ children }) {
       .from('profiles')
       .select('id, full_name, role, created_at')
       .eq('id', userId)
-      .single()
+      .maybeSingle()
 
     if (error) {
       console.error('Failed to load profile:', error.message)

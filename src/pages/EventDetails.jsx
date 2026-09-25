@@ -6,7 +6,8 @@ import LoadingState from '../components/LoadingState'
 import ErrorState from '../components/ErrorState'
 import RegistrationButton from '../components/RegistrationButton'
 import { formatDate, formatTimeRange } from '../utils/formatters'
-import { STATUS_LABELS, statusBadgeClass, spotsRemaining } from '../utils/eventHelpers'
+import { spotsRemaining } from '../utils/eventHelpers'
+import { getRealStatus, getStatusLabel, getStatusClass } from '../lib/eventStatus'
 import './EventDetails.css'
 
 export default function EventDetails() {
@@ -32,15 +33,14 @@ export default function EventDetails() {
         .from('events')
         .select('*')
         .eq('id', id)
-        .single()
+        .maybeSingle()
 
-      if (eventError) {
-        if (eventError.code === 'PGRST116') {
-          setEvent(null)
-          setLoading(false)
-          return
-        }
-        throw eventError
+      if (eventError) throw eventError
+
+      if (!eventData) {
+        setEvent(null)
+        setLoading(false)
+        return
       }
 
       const { data: registrationRows, error: registrationsError } = await supabase
@@ -68,6 +68,7 @@ export default function EventDetails() {
   if (!event) return <ErrorState title="Event not found" message="This event may have been removed." />
 
   const spotsLeft = spotsRemaining(event, registeredCount)
+  const status = getRealStatus(event)
 
   return (
     <div className="container page-section event-details">
@@ -82,7 +83,7 @@ export default function EventDetails() {
       )}
 
       <div className="event-details-header">
-        <span className={statusBadgeClass(event.status)}>{STATUS_LABELS[event.status]}</span>
+        <span className={`badge ${getStatusClass(status)}`}>{getStatusLabel(status)}</span>
         <span className="badge badge-neutral">{event.category}</span>
       </div>
 
@@ -112,7 +113,7 @@ export default function EventDetails() {
               <dt>Capacity</dt>
               <dd>
                 {registeredCount} / {event.capacity} registered
-                {spotsLeft > 0 && event.status === 'upcoming' ? ` · ${spotsLeft} left` : ''}
+                {spotsLeft > 0 && status === 'upcoming' ? ` · ${spotsLeft} left` : ''}
               </dd>
             </div>
           </dl>

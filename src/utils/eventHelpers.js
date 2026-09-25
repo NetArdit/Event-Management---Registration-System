@@ -1,3 +1,5 @@
+import { getRealStatus } from '../lib/eventStatus'
+
 export const EVENT_STATUSES = ['upcoming', 'ongoing', 'completed', 'cancelled']
 
 export const STATUS_LABELS = {
@@ -8,7 +10,7 @@ export const STATUS_LABELS = {
 }
 
 export function statusBadgeClass(status) {
-  return `badge badge-${status}`
+  return `badge status-${status}`
 }
 
 export function spotsRemaining(event, registeredCount) {
@@ -20,5 +22,5 @@ export function isEventFull(event, registeredCount) {
 }
 
 export function canRegister(event, registeredCount) {
-  return event.status !== 'cancelled' && event.status !== 'completed' && !isEventFull(event, registeredCount)
+  return getRealStatus(event) === 'upcoming' && !isEventFull(event, registeredCount)
 }

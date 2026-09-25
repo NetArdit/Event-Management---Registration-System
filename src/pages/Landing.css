@@ -23,7 +23,7 @@
 .landing-eyebrow {
   display: inline-block;
   color: var(--color-primary-dark);
-  font-size: 0.8rem;
+  font-size: 0.8125rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;

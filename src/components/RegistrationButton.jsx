@@ -3,11 +3,26 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { supabase } from '../lib/supabaseClient'
 import { canRegister, isEventFull } from '../utils/eventHelpers'
+import { getRealStatus } from '../lib/eventStatus'
 
 export default function RegistrationButton({ event, registeredCount, myRegistration, onChange }) {
   const { user } = useAuth()
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
+
+  const status = getRealStatus(event)
+
+  if (status === 'cancelled') {
+    return <p className="event-message event-message--cancelled">This event has been cancelled</p>
+  }
+
+  if (status === 'completed') {
+    return <p className="event-message event-message--completed">This event has ended</p>
+  }
+
+  if (status === 'ongoing') {
+    return <p className="event-message event-message--ongoing">This event is in progress</p>
+  }
 
   if (!user) {
     return (
@@ -71,17 +86,9 @@ export default function RegistrationButton({ event, registeredCount, myRegistrat
     )
   }
 
-  if (event.status === 'cancelled') {
-    return <p className="field-error">This event has been cancelled.</p>
-  }
-
-  if (event.status === 'completed') {
-    return <p className="field-error">This event has already ended.</p>
-  }
-
   if (isEventFull(event, registeredCount)) {
     return (
-      <button className="btn btn-secondary btn-block" disabled>
+      <button className="btn btn-disabled btn-block" disabled>
         Event Full
       </button>
     )

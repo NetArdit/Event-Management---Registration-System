@@ -6,6 +6,7 @@ import LoadingState from '../components/LoadingState'
 import EmptyState from '../components/EmptyState'
 import ErrorState from '../components/ErrorState'
 import { EVENT_STATUSES, STATUS_LABELS } from '../utils/eventHelpers'
+import { getRealStatus } from '../lib/eventStatus'
 import './Events.css'
 
 export default function Events() {
@@ -77,7 +78,7 @@ export default function Events() {
     return events.filter((event) => {
       const matchesSearch = event.title.toLowerCase().includes(search.trim().toLowerCase())
       const matchesCategory = category === 'all' || event.category === category
-      const matchesStatus = status === 'all' || event.status === status
+      const matchesStatus = status === 'all' || getRealStatus(event) === status
       return matchesSearch && matchesCategory && matchesStatus
     })
   }, [events, search, category, status])
